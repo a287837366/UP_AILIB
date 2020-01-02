@@ -3,13 +3,14 @@
     <x:Property sap2010:Annotation.AnnotationText="百度项目ID " Name="in_client_id" Type="InArgument(x:String)" />
     <x:Property Name="in_client_secret" Type="InArgument(x:String)" />
     <x:Property Name="in_imageDic" Type="InArgument(x:String)" />
-    <x:Property Name="out_ReturnCode" Type="OutArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="0-&gt; 请求成功&#xD;&#xA;200-&gt; 参数错误&#xD;&#xA;201-&gt;文件路径相关错误&#xD;&#xA;202-&gt;百度Token获取失败&#xD;&#xA;203-&gt;识别图片失败" Name="out_ReturnCode" Type="OutArgument(x:Int32)" />
     <x:Property Name="out_ReturnMsg" Type="OutArgument(x:String)" />
+    <x:Property Name="out_result" Type="OutArgument(s:String[])" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>294,225</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>262,245</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>BaiduAcitivity_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="23">
@@ -39,7 +40,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="20">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="40">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -60,15 +61,16 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="BaiduAcitivity" sap:VirtualizedContainerService.HintSize="254,145" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="BaiduAcitivity" sap:VirtualizedContainerService.HintSize="242,145" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <StateMachine InitialState="{x:Reference __ReferenceID3}" DisplayName="主 状态机" sap:VirtualizedContainerService.HintSize="1492,872" sap2010:WorkflowViewState.IdRef="StateMachine_1">
+    <StateMachine InitialState="{x:Reference __ReferenceID3}" DisplayName="主 状态机" sap:VirtualizedContainerService.HintSize="1496,872" sap2010:WorkflowViewState.IdRef="StateMachine_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -78,39 +80,39 @@
           <av:PointCollection x:Key="ConnectorLocation">120,57.5 150,57.5 150,26.5 333.9,26.5 333.9,56.5</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <State x:Name="__ReferenceID0" DisplayName="最终状态" sap:VirtualizedContainerService.HintSize="470,105" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
+      <State x:Name="__ReferenceID0" DisplayName="最终状态" sap:VirtualizedContainerService.HintSize="474,105" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">65,577.5</av:Point>
-            <av:Size x:Key="ShapeSize">470,105</av:Size>
+            <av:Size x:Key="ShapeSize">474,105</av:Size>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <x:Double x:Key="StateContainerWidth">440</x:Double>
             <x:Double x:Key="StateContainerHeight">69.039999999999964</x:Double>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </State>
-      <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="1.获取相关传递过来的数据&#xA;2.验证数据是否正确" DisplayName="判断初始化是否正确" sap:VirtualizedContainerService.HintSize="287,107" sap2010:WorkflowViewState.IdRef="State_2">
+      <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="1.获取相关传递过来的数据&#xA;2.验证数据是否正确" DisplayName="判断初始化是否正确" sap:VirtualizedContainerService.HintSize="291,107" sap2010:WorkflowViewState.IdRef="State_2">
         <State.Entry>
-          <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="635,1177" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="655,1177" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <If sap2010:Annotation.AnnotationText="判断参数是否为空" Condition="[in_client_id is Nothing or in_client_secret is Nothing or in_imageDic is Nothing]" DisplayName="IF条件 判断是否为空" sap:VirtualizedContainerService.HintSize="597,436" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="判断参数是否为空" Condition="[in_client_id is Nothing or in_client_secret is Nothing or in_imageDic is Nothing]" DisplayName="IF条件 判断是否为空" sap:VirtualizedContainerService.HintSize="613,436" sap2010:WorkflowViewState.IdRef="If_1">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="297,254" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="305,254" sap2010:WorkflowViewState.IdRef="Sequence_7">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_10">
+                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_10">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Int32">[out_ReturnCode]</OutArgument>
                     </Assign.To>
@@ -118,7 +120,7 @@
                       <InArgument x:TypeArguments="x:Int32">200</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_4">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[out_ReturnMsg]</OutArgument>
                     </Assign.To>
@@ -129,7 +131,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_1">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:Boolean">[isParamsOK]</OutArgument>
                   </Assign.To>
@@ -139,7 +141,7 @@
                 </Assign>
               </If.Else>
             </If>
-            <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="597,61" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="613,61" sap2010:WorkflowViewState.IdRef="Assign_5">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:String[]">[file_Array]</OutArgument>
               </Assign.To>
@@ -147,15 +149,15 @@
                 <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_imageDic)]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[file_Array is nothing]" DisplayName="IF条件" sap:VirtualizedContainerService.HintSize="597,508" sap2010:WorkflowViewState.IdRef="If_2">
+            <If Condition="[file_Array is nothing]" DisplayName="IF条件" sap:VirtualizedContainerService.HintSize="613,508" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
-                <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="297,355" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="305,355" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_6">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Boolean">[isParamsOK]</OutArgument>
                     </Assign.To>
@@ -163,7 +165,7 @@
                       <InArgument x:TypeArguments="x:Boolean">False</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_11">
+                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_11">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Int32">[out_ReturnCode]</OutArgument>
                     </Assign.To>
@@ -171,7 +173,7 @@
                       <InArgument x:TypeArguments="x:Int32">201</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_7">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[out_ReturnMsg]</OutArgument>
                     </Assign.To>
@@ -187,7 +189,7 @@
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">276.5,56.5</av:Point>
-            <av:Size x:Key="ShapeSize">287,107</av:Size>
+            <av:Size x:Key="ShapeSize">291,107</av:Size>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <x:Double x:Key="StateContainerWidth">257</x:Double>
             <x:Double x:Key="StateContainerHeight">25</x:Double>
@@ -221,15 +223,15 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <Transition.To>
-              <State x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="1.根据 KEY获取 Token" DisplayName="获取百度Token" sap:VirtualizedContainerService.HintSize="353,90" sap2010:WorkflowViewState.IdRef="State_3">
+              <State x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="1.根据 KEY获取 Token" DisplayName="获取百度Token" sap:VirtualizedContainerService.HintSize="357,90" sap2010:WorkflowViewState.IdRef="State_3">
                 <State.Entry>
-                  <Sequence DisplayName="序列_获取Token" sap:VirtualizedContainerService.HintSize="472,780" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Sequence DisplayName="序列_获取Token" sap:VirtualizedContainerService.HintSize="480,780" sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="HTTP GET TOKEN" EndPoint="https://aip.baidubce.com/oauth/2.0/token" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[response_GetToken]" TimeoutMS="6000">
+                    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="HTTP GET TOKEN" EndPoint="https://aip.baidubce.com/oauth/2.0/token" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[response_GetToken]" TimeoutMS="6000">
                       <ui:HttpClient.Attachments>
                         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
                       </ui:HttpClient.Attachments>
@@ -248,19 +250,19 @@
                         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
                       </ui:HttpClient.UrlSegments>
                     </ui:HttpClient>
-                    <TryCatch DisplayName="Try Catch 处理JSON 序列化" sap:VirtualizedContainerService.HintSize="434,626" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                    <TryCatch DisplayName="Try Catch 处理JSON 序列化" sap:VirtualizedContainerService.HintSize="438,626" sap2010:WorkflowViewState.IdRef="TryCatch_1">
                       <TryCatch.Variables>
                         <Variable x:TypeArguments="njl:JObject" Name="model_GetToken" />
                       </TryCatch.Variables>
                       <TryCatch.Try>
-                        <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="368,389" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                        <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="376,389" sap2010:WorkflowViewState.IdRef="Sequence_4">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="反序列化 JSON" sap:VirtualizedContainerService.HintSize="330,61" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[model_GetToken]" JsonString="[response_GetToken]" />
-                          <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="330,61" sap2010:WorkflowViewState.IdRef="Assign_3">
+                          <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="反序列化 JSON" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[model_GetToken]" JsonString="[response_GetToken]" />
+                          <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_3">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:String">[access_token]</OutArgument>
                             </Assign.To>
@@ -268,11 +270,11 @@
                               <InArgument x:TypeArguments="x:String">[model_GetToken("access_token").ToString]</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="330,95" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;获取Token完事&quot; + access_token]" />
+                          <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="334,95" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;获取Token完事&quot; + access_token]" />
                         </Sequence>
                       </TryCatch.Try>
                       <TryCatch.Catches>
-                        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,23" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,23" sap2010:WorkflowViewState.IdRef="Catch`1_1">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -283,7 +285,7 @@
                             <ActivityAction.Argument>
                               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                             </ActivityAction.Argument>
-                            <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_2">
+                            <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_2">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:Boolean">[isTokenOK]</OutArgument>
                               </Assign.To>
@@ -300,7 +302,7 @@
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <av:Point x:Key="ShapeLocation">703,52.5</av:Point>
-                    <av:Size x:Key="ShapeSize">353,90</av:Size>
+                    <av:Size x:Key="ShapeSize">357,90</av:Size>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     <x:Double x:Key="StateContainerWidth">323</x:Double>
                     <x:Double x:Key="StateContainerHeight">25</x:Double>
@@ -308,10 +310,10 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
                 <State.Transitions>
-                  <Transition DisplayName="tokenFailed" sap:VirtualizedContainerService.HintSize="467,1099" sap2010:WorkflowViewState.IdRef="Transition_2">
+                  <Transition DisplayName="tokenFailed" sap:VirtualizedContainerService.HintSize="479,1099" sap2010:WorkflowViewState.IdRef="Transition_2">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <av:PointCollection x:Key="ConnectorLocation">897.15,142.5 897.15,252.5 646,252.5 646,275.76 529,275.76 529,399.5 300,399.5 300,577.5</av:PointCollection>
+                        <av:PointCollection x:Key="ConnectorLocation">899.35,142.5 899.35,215.76 704,215.76 704,398.5 302,398.5 302,577.5</av:PointCollection>
                         <x:Int32 x:Key="SrcConnectionPointIndex">43</x:Int32>
                         <x:Int32 x:Key="DestConnectionPointIndex">38</x:Int32>
                       </scg:Dictionary>
@@ -320,13 +322,13 @@
                       <x:Reference>__ReferenceID0</x:Reference>
                     </Transition.To>
                     <Transition.Action>
-                      <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="368,389" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                      <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="376,389" sap2010:WorkflowViewState.IdRef="Sequence_6">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="330,61" sap2010:WorkflowViewState.IdRef="Assign_8">
+                        <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_8">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Int32">[out_ReturnCode]</OutArgument>
                           </Assign.To>
@@ -334,7 +336,7 @@
                             <InArgument x:TypeArguments="x:Int32">202</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="330,61" sap2010:WorkflowViewState.IdRef="Assign_9">
+                        <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_9">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[out_ReturnMsg]</OutArgument>
                           </Assign.To>
@@ -342,7 +344,7 @@
                             <InArgument x:TypeArguments="x:String">Token 获取失败</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="330,95" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;调用接口 失败&quot;]" />
+                        <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="334,95" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;调用接口 失败&quot;]" />
                       </Sequence>
                     </Transition.Action>
                     <Transition.Condition>[isTokenOK = false]</Transition.Condition>
@@ -351,97 +353,89 @@
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        <av:PointCollection x:Key="ConnectorLocation">897.15,142.5 897.15,172.5 942,172.5 942,338</av:PointCollection>
+                        <av:PointCollection x:Key="ConnectorLocation">899.35,142.5 899.35,172.5 944,172.5 944,338</av:PointCollection>
                         <x:Int32 x:Key="SrcConnectionPointIndex">43</x:Int32>
                         <x:Int32 x:Key="DestConnectionPointIndex">38</x:Int32>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <Transition.To>
-                      <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="1.循环图片列表，调用接口。&#xD;&#xA;2.输出JSON OBJECT" DisplayName="OCR 解析成JSON" sap:VirtualizedContainerService.HintSize="357,107" sap2010:WorkflowViewState.IdRef="State_4">
+                      <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="1.循环图片列表，调用接口。&#xA;2.输出JSON OBJECT" DisplayName="OCR 解析成JSON" sap:VirtualizedContainerService.HintSize="484,1182" sap2010:WorkflowViewState.IdRef="State_4">
                         <State.Entry>
-                          <TryCatch DisplayName="Try Catch 处理" sap:VirtualizedContainerService.HintSize="434,639" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                          <TryCatch DisplayName="Try Catch 处理" sap:VirtualizedContainerService.HintSize="438,739" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                             <TryCatch.Try>
-                              <Sequence DisplayName="循环图片" sap:VirtualizedContainerService.HintSize="297,402" sap2010:WorkflowViewState.IdRef="Sequence_8">
-                                <Sequence.Variables>
-                                  <Variable x:TypeArguments="x:Int32" Name="index_for" />
-                                </Sequence.Variables>
+                              <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="347,502" sap2010:WorkflowViewState.IdRef="Sequence_13">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                <Sequence DisplayName="循环图片" sap:VirtualizedContainerService.HintSize="305,309" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Int32" Name="index_for" />
+                                  </Sequence.Variables>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="s:String[]">[json_invoiceArray]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="s:String[]">[new String(file_Array.Count){}]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="1.循环路径里所有文件&#xA;2.调用百度接口&#xA;3.生成JSON ARRAY" CurrentIndex="[index_for]" DisplayName="遍历循环 文件" sap:VirtualizedContainerService.HintSize="263,116" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[file_Array]">
+                                    <ui:ForEach.Body>
+                                      <ActivityAction x:TypeArguments="x:String">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="x:String" Name="image_Path" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="正文" sap:VirtualizedContainerService.HintSize="376,280" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                          <Sequence.Variables>
+                                            <Variable x:TypeArguments="x:String" Name="json_item_invoice" />
+                                          </Sequence.Variables>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="调用工作流 解析一张图片" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="BaiduAPI\PassingImageByBaidu.xaml">
+                                            <ui:InvokeWorkflowFile.Arguments>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_fileName">[image_Path]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_assToken">[access_token]</InArgument>
+                                              <OutArgument x:TypeArguments="x:String" x:Key="out_invoice">[json_item_invoice]</OutArgument>
+                                            </ui:InvokeWorkflowFile.Arguments>
+                                          </ui:InvokeWorkflowFile>
+                                          <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_13">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[json_invoiceArray(index_for)]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">[json_item_invoice]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </ui:ForEach.Body>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:ForEach>
+                                </Sequence>
+                                <Assign DisplayName="分配" sap:VirtualizedContainerService.HintSize="305,61" sap2010:WorkflowViewState.IdRef="Assign_19">
                                   <Assign.To>
-                                    <OutArgument x:TypeArguments="s:String[]">[json_invoiceArray]</OutArgument>
+                                    <OutArgument x:TypeArguments="s:String[]">[out_result]</OutArgument>
                                   </Assign.To>
                                   <Assign.Value>
-                                    <InArgument x:TypeArguments="s:String[]">[new String(file_Array.Count){}]</InArgument>
+                                    <InArgument x:TypeArguments="s:String[]">[json_invoiceArray]</InArgument>
                                   </Assign.Value>
                                 </Assign>
-                                <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="1.循环路径里所有文件&#xD;&#xA;2.调用百度接口&#xD;&#xA;3.生成JSON ARRAY" CurrentIndex="[index_for]" DisplayName="遍历循环 文件" sap:VirtualizedContainerService.HintSize="259,116" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[file_Array]">
-                                  <ui:ForEach.Body>
-                                    <ActivityAction x:TypeArguments="x:String">
-                                      <ActivityAction.Argument>
-                                        <DelegateInArgument x:TypeArguments="x:String" Name="image_Path" />
-                                      </ActivityAction.Argument>
-                                      <Sequence DisplayName="正文" sap:VirtualizedContainerService.HintSize="368,280" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                                        <Sequence.Variables>
-                                          <Variable x:TypeArguments="x:String" Name="json_item_invoice" />
-                                        </Sequence.Variables>
-                                        <sap:WorkflowViewStateService.ViewState>
-                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                          </scg:Dictionary>
-                                        </sap:WorkflowViewStateService.ViewState>
-                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="调用工作流 解析一张图片" sap:VirtualizedContainerService.HintSize="330,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="BaiduAPI\PassingImageByBaidu.xaml">
-                                          <ui:InvokeWorkflowFile.Arguments>
-                                            <InArgument x:TypeArguments="x:String" x:Key="in_fileName">[image_Path]</InArgument>
-                                            <InArgument x:TypeArguments="x:String" x:Key="in_assToken">[access_token]</InArgument>
-                                            <OutArgument x:TypeArguments="x:String" x:Key="out_invoice">[json_item_invoice]</OutArgument>
-                                          </ui:InvokeWorkflowFile.Arguments>
-                                        </ui:InvokeWorkflowFile>
-                                        <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="330,61" sap2010:WorkflowViewState.IdRef="Assign_13">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="x:String">[json_invoiceArray(index_for)]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="x:String">[json_item_invoice]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                      </Sequence>
-                                    </ActivityAction>
-                                  </ui:ForEach.Body>
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                </ui:ForEach>
-                                <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="遍历循环 JSON文件" sap:VirtualizedContainerService.HintSize="259,53" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[json_invoiceArray]">
-                                  <ui:ForEach.Body>
-                                    <ActivityAction x:TypeArguments="x:Object">
-                                      <ActivityAction.Argument>
-                                        <DelegateInArgument x:TypeArguments="x:Object" Name="item_json" />
-                                      </ActivityAction.Argument>
-                                      <Sequence DisplayName="正文" sap:VirtualizedContainerService.HintSize="368,187" sap2010:WorkflowViewState.IdRef="Sequence_10">
-                                        <sap:WorkflowViewStateService.ViewState>
-                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                          </scg:Dictionary>
-                                        </sap:WorkflowViewStateService.ViewState>
-                                        <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="330,95" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[item_json]" />
-                                      </Sequence>
-                                    </ActivityAction>
-                                  </ui:ForEach.Body>
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                </ui:ForEach>
                               </Sequence>
                             </TryCatch.Try>
                             <TryCatch.Catches>
@@ -456,6 +450,37 @@
                                   <ActivityAction.Argument>
                                     <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                                   </ActivityAction.Argument>
+                                  <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="305,353" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <Assign DisplayName="分配" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[out_ReturnCode]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">203</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="分配" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[out_ReturnMsg]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">识别图片失败</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="分配" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_16">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="s:String[]">[out_result]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="s:String[]">[Nothing]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
                                 </ActivityAction>
                               </Catch>
                             </TryCatch.Catches>
@@ -464,7 +489,7 @@
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <av:Point x:Key="ShapeLocation">763.5,338</av:Point>
-                            <av:Size x:Key="ShapeSize">357,107</av:Size>
+                            <av:Size x:Key="ShapeSize">361,107</av:Size>
                             <x:Boolean x:Key="IsPinned">False</x:Boolean>
                             <x:Double x:Key="StateContainerWidth">327</x:Double>
                             <x:Double x:Key="StateContainerHeight">25</x:Double>
@@ -475,22 +500,23 @@
                           <Transition DisplayName="Passing Sccuess" sap:VirtualizedContainerService.HintSize="446,964" sap2010:WorkflowViewState.IdRef="Transition_5">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <av:PointCollection x:Key="ConnectorLocation">941,445 941,640.5 535,640.5</av:PointCollection>
+                                <av:PointCollection x:Key="ConnectorLocation">944,445 944,640.5 539,640.5</av:PointCollection>
                                 <x:Int32 x:Key="SrcConnectionPointIndex">39</x:Int32>
                                 <x:Int32 x:Key="DestConnectionPointIndex">44</x:Int32>
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                             <Transition.To>
                               <x:Reference>__ReferenceID0</x:Reference>
                             </Transition.To>
                             <Transition.Action>
-                              <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="297,254" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                              <Sequence DisplayName="序列" sap:VirtualizedContainerService.HintSize="305,254" sap2010:WorkflowViewState.IdRef="Sequence_11">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_14">
                                   <Assign.To>
                                     <OutArgument x:TypeArguments="x:Int32">[out_ReturnCode]</OutArgument>
                                   </Assign.To>
@@ -498,7 +524,7 @@
                                     <InArgument x:TypeArguments="x:Int32">0</InArgument>
                                   </Assign.Value>
                                 </Assign>
-                                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="259,61" sap2010:WorkflowViewState.IdRef="Assign_15">
+                                <Assign DisplayName="赋值" sap:VirtualizedContainerService.HintSize="263,61" sap2010:WorkflowViewState.IdRef="Assign_15">
                                   <Assign.To>
                                     <OutArgument x:TypeArguments="x:String">[out_ReturnMsg]</OutArgument>
                                   </Assign.To>
@@ -510,11 +536,11 @@
                             </Transition.Action>
                             <Transition.Condition>[isPassingOK = true]</Transition.Condition>
                           </Transition>
-                          <Transition DisplayName="Passing Fail" sap2010:WorkflowViewState.IdRef="Transition_6">
+                          <Transition DisplayName="Passing Fail" sap:VirtualizedContainerService.HintSize="450,964" sap2010:WorkflowViewState.IdRef="Transition_6">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                <av:PointCollection x:Key="ConnectorLocation">941,445 941,582.75 535,582.75</av:PointCollection>
+                                <av:PointCollection x:Key="ConnectorLocation">944,445 944,582.75 539,582.75</av:PointCollection>
                                 <x:Int32 x:Key="SrcConnectionPointIndex">39</x:Int32>
                                 <x:Int32 x:Key="DestConnectionPointIndex">0</x:Int32>
                               </scg:Dictionary>
@@ -528,7 +554,7 @@
                       </State>
                     </Transition.To>
                     <Transition.Action>
-                      <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="330,95" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;调用接口成功&quot;]" />
+                      <ui:LogMessage DisplayName="日志消息" sap:VirtualizedContainerService.HintSize="334,95" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;调用接口成功&quot;]" />
                     </Transition.Action>
                     <Transition.Condition>[isTokenOK = true]</Transition.Condition>
                   </Transition>

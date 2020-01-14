@@ -1,6 +1,6 @@
 {
-  "name": "DY_BAIDU_INVOICE",
-  "description": "1.票据识别相关封装\r\n",
+  "name": "JP_Baidu_AI",
+  "description": "1.相关百度接口的封装",
   "main": "NewActivity.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.8.0-preview]",
@@ -12,7 +12,7 @@
   "webServices": [],
   "schemaVersion": "4.0",
   "studioVersion": "19.7.0.0",
-  "projectVersion": "1.0.5",
+  "projectVersion": "1.0.6",
   "runtimeOptions": {
     "autoDispose": false,
     "isPausable": true,

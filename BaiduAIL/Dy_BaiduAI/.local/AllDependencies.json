@@ -1788,8 +1788,8 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "DY_BAIDU_INVOICE",
-      "projectName": "DY_BAIDU_INVOICE",
+      "projectUniqueName": "JP_Baidu_AI",
+      "projectName": "JP_Baidu_AI",
       "projectPath": "E:\\4.Source\\GIT\\UiPath_BaiduAI\\BaiduAIL\\Dy_BaiduAI\\.local",
       "packagesPath": "C:\\Users\\18604\\.nuget\\packages\\",
       "outputPath": "E:\\4.Source\\GIT\\UiPath_BaiduAI\\BaiduAIL\\Dy_BaiduAI\\.local"
